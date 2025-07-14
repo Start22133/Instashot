@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Auth Redirect</title>
+</head>
+<body>
+  <h2>⏳ Instagramdan token olinmoqda...</h2>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+
+    if (code) {
+      fetch(`https://YOUR_BACKEND_URL/getAccessToken?code=${code}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log("✅ Token:", data.access_token);
+          // Tokenni localStorage ga saqlash:
+          localStorage.setItem("insta_token", data.access_token);
+
+          // Istasangiz, bu yerdan video/media olishni boshlashingiz mumkin
+          alert("Instagram login muvaffaqiyatli!");
+          window.location.href = "/"; // Asosiy sahifaga qaytish
+        })
+        .catch(err => {
+          console.error("Token olishda xatolik:", err);
+          alert("Xatolik yuz berdi");
+        });
+    } else {
+      alert("Instagramdan code kelmadi");
+    }
+  </script>
+</body>
+</html>
