@@ -20,4 +20,22 @@ app.get('/getAccessToken', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+  // /exchangeLongToken
+app.get('/exchangeLongToken', async (req, res) => {
+  const { shortToken } = req.query;
+
+  try {
+    const response = await axios.get(`https://graph.instagram.com/access_token`, {
+      params: {
+        grant_type: 'ig_exchange_token',
+        client_secret: 'YOUR_APP_SECRET',
+        access_token: shortToken
+      }
+    });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
+
+
