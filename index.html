@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>InstaShot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>InstaShot 📸</h1>
+    <button id="darkModeToggle">🌙</button>
+  </header>
+
+  <section id="upload">
+    <input type="file" id="fileInput">
+    <button onclick="uploadPost()">Post Image</button>
+  </section>
+
+  <section id="feed"></section>
+
+  <footer>
+    <nav>
+      <button onclick="showFeed()">🏠 Home</button>
+      <button onclick="showProfile()">👤 Profile</button>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
