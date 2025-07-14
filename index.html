@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Instashot</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fafafa;
+      max-width: 600px;
+      margin: auto;
+    }
+    header {
+      background: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .post {
+      background: white;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .post img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+    .actions {
+      margin-top: 10px;
+    }
+    .like-btn {
+      cursor: pointer;
+      color: red;
+      font-size: 18px;
+    }
+    .comments {
+      margin-top: 10px;
+    }
+    .comments input {
+      width: 100%;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<header>📸 Instashot</header>
+
+<div class="post">
+  <img id="uploadedImage" src="" alt="Rasm" style="display:none;">
+  <input type="file" id="fileInput">
+  <div class="actions">
+    <span class="like-btn" onclick="likePost()">❤️ Like</span> <span id="likeCount">0</span> ta
+  </div>
+  <div class="comments">
+    <input type="text" id="commentInput" placeholder="Izoh yozing..." onkeydown="submitComment(event)">
+    <div id="commentList"></div>
+  </div>
+</div>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const uploadedImage = document.getElementById('uploadedImage');
+  const likeCount = document.getElementById('likeCount');
+  const commentList = document.getElementById('commentList');
+  let likes = 0;
+
+  fileInput.addEventListener('change', function () {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      uploadedImage.src = e.target.result;
+      uploadedImage.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function likePost() {
+    likes++;
+    likeCount.textContent = likes;
+  }
+
+  function submitComment(event) {
+    if (event.key === "Enter") {
+      const text = document.getElementById('commentInput').value;
+      if (text.trim() !== "") {
+        const comment = document.createElement('div');
+        comment.textContent = text;
+        commentList.appendChild(comment);
+        document.getElementById('commentInput').value = "";
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
